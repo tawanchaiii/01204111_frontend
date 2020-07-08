@@ -41,7 +41,7 @@ export default {
   },
   watch : {
     select : function(){
-      this.$emit('onchange-selection', { id : this.problem.id, select : this.select })
+      this.$emit('onchange-selection', { id : this.problem._id, select : this.select })
     }
   }
 }

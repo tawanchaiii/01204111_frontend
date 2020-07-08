@@ -6,7 +6,7 @@
       </p>
     </v-card-title>
     <problem
-      v-for="(problem, index) in section.problems"
+      v-for="(problem, index) in section.sectionProblems"
       :key="index"
       :problem="problem"
       :index="index"
@@ -35,13 +35,12 @@ export default {
     }
   },
   created(){
-    this.$emit('section-created');
     bus.$on('submit-answer', () => {
       const payload = {
-        sectionNumber : this.section.id,
+        sectionNumber : this.section._id,
         userAnswer : this.userAnswer
       }
-      axios.post(this.$APIURL + 'answer/submit/subjective'
+      axios.post(this.$APIURL + 'answer/submit/subjective/' + String(this.section._id)
         ,payload,
         { withCredentials : true })
         .then( (res) =>{
@@ -49,8 +48,8 @@ export default {
         .catch( (err) => {
         })
     })
-    for ( let problem of this.section.problems ){
-      this.userAnswer[problem] = null;
+    for ( let problem of this.section.sectionProblems ){
+      this.userAnswer[problem._id] = null;
     }
   },
   components : {

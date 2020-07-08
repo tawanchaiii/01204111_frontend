@@ -8,7 +8,7 @@
     <v-list rounded>
       <v-list-item-group :color="$vuetify.theme.dark ? 'white' : 'accent'">
         <v-row>
-          <v-list-item v-for="problem in section.problems" :key="problem.id">
+          <v-list-item v-for="problem in section.sectionProblems" :key="problem.id">
             <v-col xs="4" sm="4" md="5" lg="6" xl="10">
               <v-list-item-content @click="viewProblemContent(problem)">
                 {{ problem.problemContent }}
@@ -47,7 +47,7 @@ export default {
   },
   methods : {
     viewProblemContent(problem){
-      axios.get( this.$APIURL + 'problems/content/' + String(problem.id), { withCredentials : true } )
+      axios.get( this.$APIURL + 'problems/content/' + String(problem._id), { withCredentials : true } )
         .then( (res) =>{
           let popup = window.open(res.data.pdfUrl)
           if ( !popup ){
@@ -59,7 +59,7 @@ export default {
   },
   watch : {
     count : function(){
-      if ( this.count === this.section.problems.length ){
+      if ( this.count === this.section.sectionProblems.length ){
         this.$emit('section-submit-success');
       }
     }

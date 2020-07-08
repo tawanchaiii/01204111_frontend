@@ -15,22 +15,21 @@
               <v-col>
                 <!-- firstname -->
                 <v-text-field
-                  v-model="login.firstname"
+                  v-model="login.std"
                   required
-                  label="ชื่อจริง"
-                  placeholder="บูรพา"
+                  label="stdnumber"
+                  placeholder="std01"
                   outlined
-                  @keyup.enter="focusLastname"
                   :color="$vuetify.theme.dark ? 'white' : 'accent'"
                 ></v-text-field>
 
                 <!-- lastname -->
                 <v-text-field
-                  v-model="login.lastname"
-                  ref="นามสกุล"
+                  v-model="login.password"
+                  :type="'password'"
                   required
-                  label="นามสกุล"
-                  placeholder="เจริญวัฒน์"
+                  label="password"
+                  placeholder="password"
                   outlined
                   @keyup.enter="LoginHandler"
                   :color="$vuetify.theme.dark ? 'white' : 'accent'"
@@ -50,7 +49,6 @@
                 </v-alert>
 
                 <!-- button -->
-                <router-link to="/pre_test">
                   <v-btn
                     depressed
                     x-large
@@ -61,7 +59,6 @@
                       Login
                     </p>
                   </v-btn>
-                </router-link>
               </v-col>
             </v-form>
           </v-card>
@@ -84,8 +81,8 @@ export default {
   data() {
     return {
       login: {
-        firstname: "",
-        lastname: "",
+        std: "",
+        password: "",
       },
       hasError: false,
       message: { en: "", th: "" },
@@ -93,38 +90,19 @@ export default {
   },
   methods: {
     LoginHandler() {
-      this.login.firstname = this.login.firstname.trim();
-      this.login.lastname = this.login.lastname.trim();
+      this.login.std = this.login.std.trim();
+      this.login.password = this.login.password.trim();
       axios
         .post(this.$APIURL + "auth/login", this.login, {
           withCredentials: true,
         })
         .then((response) => {
-          this.$router.push("/pre_test/explanation");
+          this.$router.push("/test");
         })
-        .catch((err) => {
-          if (err.response.status == 401) {
-            this.hasError = true;
-            if (
-              (err.response.data.err == "test finish") |
-              (err.response.data.err == "timeout")
-            ) {
-              this.message.en = "You're already tested.";
-              this.message.th = "คุณได้ทำการทดสอบไปแล้ว";
-            } else if (
-              err.response.data.err ==
-              "firstname and lastname don't match in database"
-            ) {
-              this.message.en =
-                "Firstname or Lastname doesn't match in the database. Please contact the admin.";
-              this.message.th =
-                "ชื่อหรือนามสกุลของคุณไม่มีในฐานข้อมูล โปรดติดต่อผู้ดูแลระบบ";
-            } else {
-              this.message.en = err.response.data.err;
-              this.message.th = err.response.status;
-            }
-          }
-        });
+        .catch( (err) => {
+          this.hasError = true;
+          this.message.en = err.response.data.err;
+        })
     },
     focusLastname(event) {
       this.$refs.lastname.focus();

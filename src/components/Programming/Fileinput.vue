@@ -35,7 +35,7 @@ export default {
     bus.$on('submit-answer' ,() => {
       let payload = new FormData();
       payload.append('userFile',this.userFile);
-      axios.post(this.$APIURL + 'answer/submit/file/' + String(this.problem.id), payload, { withCredentials : true })
+      axios.post(this.$APIURL + 'answer/submit/file/' + String(this.problem._id), payload, { withCredentials : true })
         .then( (res) => {
         })
         .catch( (err) => {

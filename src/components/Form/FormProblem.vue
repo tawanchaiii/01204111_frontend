@@ -8,7 +8,7 @@
     <v-textarea
       v-model="userText"
       :color="$vuetify.theme.dark ? 'white' : 'accent'"
-      placeholder="เขียนเหมือนคุยเล่นได้เลย ข้อความที่น้องเขียนจะไม่มีการเปิดเผย"
+      placeholder="อธิบายคร่าวๆ ในนี้"
       outlined
       no-resize
     ></v-textarea>
@@ -30,9 +30,7 @@ export default {
   created(){
     bus.$on('submit-answer', ()=>{
       const payload = { userText: this.userText };
-      const targetApi =
-        this.$APIURL + "answer/submit/text/" +
-        String(this.problem.id);
+      const targetApi = this.$APIURL + "answer/submit/text/" + String(this.problem._id);
       axios
         .post(targetApi, payload, { withCredentials: true })
         .then((res) => {

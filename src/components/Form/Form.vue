@@ -10,8 +10,8 @@
     <v-card-text class="text--primary">
       <v-form>
         <FormProblem
-          v-for="problem in section.problems"
-          :key="problem.id"
+          v-for="problem in section.sectionProblems"
+          :key="problem._id"
           :problem="problem"
           @form-submit-success="addCount()"
         >
@@ -45,7 +45,7 @@ export default {
   },
   watch : {
     count : function(){
-      if ( this.count === this.section.problems.length ){
+      if ( this.count === this.section.sectionProblems.length ){
         this.$emit('section-submit-success');
       }
     }

@@ -34,33 +34,25 @@
                 {{ hours }} : {{ minutes }} : {{ seconds }}
               </v-tab>
 
-              <!-- unknow section -->
               <v-tab-item>
-                <Form 
-                  :section="sections[0]" 
-                > 
-                </Form>
               </v-tab-item>
-              <!-- section 1 -->
-              <v-tab-item>
-                <Form 
-                  :section="sections[0]" 
-                > 
+              <v-tab-item
+                v-for="section in sections"
+                :key="section.id"
+              > 
+                <Form
+                  v-if="section.type === 'form'"
+                  :section="section"
+                >
                 </Form>
-              </v-tab-item>
-
-              <!-- section 2 -->
-              <v-tab-item>
-                <Subjective 
-                :section="sections[1]" 
+                <Subjective
+                  v-else-if="section.type === 'subjective'"
+                  :section="section"
                 >
                 </Subjective>
-              </v-tab-item>
-
-              <!-- section 3 -->
-              <v-tab-item>
-                <Programming 
-                :section="sections[2]" 
+                <Programming
+                  v-else-if="section.type === 'programming'"
+                  :section="section"
                 >
                 </Programming>
               </v-tab-item>
@@ -113,8 +105,8 @@ export default {
   },
   components: {
     Form,
-    Subjective,
     Programming,
+    Subjective,
     mydialog,
     Footer,
   },
