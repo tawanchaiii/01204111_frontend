@@ -97,7 +97,7 @@ export default {
           withCredentials: true,
         })
         .then((response) => {
-          this.$router.push("/test");
+          this.$router.push("/pretest");
         })
         .catch( (err) => {
           this.hasError = true;

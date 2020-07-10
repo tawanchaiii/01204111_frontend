@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import VueCookies from 'vue-cookies'
+import VueCookies from 'vue-cookies';
 
 Vue.use(VueRouter);
 Vue.use(VueCookies);
@@ -23,9 +23,25 @@ const routes = [
     },
   },
   {
-    path: "/test",
+    path : "/register",
+    name : "Register",
+    component: () => import('../views/Register.vue'),
+    meta : {
+      title : "CPE34 - Register"
+    }
+  },
+  {
+    path : "/pretest",
+    name : "Pretest",
+    component : () => import('../views/Pretest.vue'),
+    meta : {
+      title : "CPE34 - Pretest",
+    }
+  },
+  {
+    path: "/test/:testId",
     name: "test",
-    component: () => import('../views/test.vue'),
+    component: () => import('../views/Test.vue'),
     meta: {
       title: "CPE34 - Test",
       Auth: true,

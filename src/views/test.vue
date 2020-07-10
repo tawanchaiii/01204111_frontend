@@ -128,7 +128,7 @@ export default {
       this.timer = res.data.timeLeft;
     });
     axios
-      .get(this.$APIURL + "problems/list", {
+      .get(this.$APIURL + "problems/list/" + this.$route.params.testId, {
         withCredentials: true,
       })
       .then((res) => {
