@@ -13,11 +13,29 @@
               <v-list-item-group :color="$vuetify.theme.dark ? 'white' : 'accent'">
                 <v-row>
                   <v-list-item v-for="id in allTestId" :key="id">
-                    <v-col xs="4" sm="4" md="5" lg="6" xl="10">
-                      <v-list-item-content @click="startTest(id)">
-                        {{ allTests[id].name }}
-                      </v-list-item-content>
-                    </v-col>
+                      <v-row>
+                        <v-col>
+                          <v-list-item-title>
+                              <p>
+                                {{ allTests[id].name }}
+                              </p>
+                          </v-list-item-title>
+                        </v-col>
+                        <v-col>
+                          <p>
+                            {{ allTests[id].endTime }}
+                          </p>
+                        </v-col>
+                        <v-col>
+                          <v-btn 
+                            :disabled="allTests[id].isSubmit"
+                            :color="purple"
+                            @click="startTest(id)"
+                            >
+                            start test
+                          </v-btn>
+                        </v-col>
+                      </v-row>
                   </v-list-item>
                 </v-row>
               </v-list-item-group>

@@ -55,4 +55,15 @@ const router = new VueRouter({
   routes,
 });
 
+router.beforeEach( (to, from, next) => {
+  if ( to.name === "Pretest" && from.name !== "Login" ){
+    next({ name : "Login" });
+  }
+  else if ( to.name === "test" && from.name !== "Pretest" ){
+    next({ name : "Login" });
+  } else {
+    next();
+  }
+})
+
 export default router;
